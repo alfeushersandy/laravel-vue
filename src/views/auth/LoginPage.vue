@@ -8,7 +8,7 @@
                     </div>
                 <div class="card border-0 rounded shadow">
                     <div class="card-body">
-                        <h4>LOGIN</h4>
+                        <h4 class="text-center">LOGIN</h4>
                         <hr>
                         <form @submit.prevent="login">
                             <div class="form-group">
@@ -28,7 +28,7 @@
                             <div v-if="validation.password" class="mt-2 alert alert-danger">
                                 {{ validation.password[0] }}
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">LOGIN</button>
+                            <button type="submit" class="btn btn-primary btn-block mt-2">LOGIN</button>
                         </form>
                     </div>
                 </div>

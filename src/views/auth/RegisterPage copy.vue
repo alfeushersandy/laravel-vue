@@ -60,14 +60,19 @@
 </template>
 
 <script>
-    import {reactive, ref} from 'vue';
-    import { useStore } from 'vuex';
-    import { useRouter } from 'vue-router';
+    import { reactive, ref } from 'vue'
+    import { useRouter } from 'vue-router'
+    import axios from 'axios'
 
     export default {
-        name: 'RegisterComponent',
+
+
         setup() {
-            //inisiasi state awal 
+
+            //inisialisasi vue router on Composition API
+            const router = useRouter()
+
+            //state user
             const user = reactive({
                 name: '',
                 email: '',
@@ -78,42 +83,44 @@
             //state validation
             const validation = ref([])
 
-            //inisiasi store vuex
-            const store = useStore()
-
-            //inisiasi route
-            const router = useRouter()
-
-            //buat function register 
+            //method register
             function register() {
-                //define variable before send to server 
+
+                //define variable 
                 let name = user.name
                 let email = user.email
                 let password = user.password
                 let password_confirmation = user.password_confirmation
 
-                //panggil action "register" dari module auth vuex
-                store.dispatch('register', {
-                    name,
-                    email,
-                    password,
-                    password_confirmation
+                //send server with axios
+                axios.post('http://localhost:8000/api/register', {
+                        name,
+                        email,
+                        password,
+                        password_confirmation
                 })
                 .then(() => {
-                    //redirect halaman
-                    router.push({name: 'dashboard'})
+
+                    //redirect ke halaman login
+                    return router.push({
+                        name: 'login'
+                    })
+
                 }).catch(error => {
-                    //menampilkan validation message
-                    validation.value = error
+                    //set validation dari error response
+                    validation.value = error.response.data
                 })
+
             }
 
             return {
-                user,
-                validation,
-                register
+                user, // <-- state user
+                validation, // <-- state validation 
+                register // <-- method register
             }
+
         }
+
     }
 </script>
 
