@@ -1,4 +1,18 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+//import route untuk digunakan
+import router from './router'
+
+//import Bootstrap, Popper, jQuery
+import 'bootstrap/dist/css/bootstrap.css'
+import 'jquery/dist/jquery.min'
+import 'popper.js/dist/popper.min'
+import 'bootstrap/dist/js/bootstrap.min'
+
+const app = createApp(App)
+
+//use the router
+app.use(router)
+
+app.mount('#app')
